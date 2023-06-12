@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+ <html>
+ <head>
+   <title>学生信息</title>
+
+ <style>
+  body{
+   background-image: url('/static/4.jpg');
+   background-size: cover;
+   text-align: center;
+   font-weight: bold;
+   font-size: larger;
+
+  }
+
+  a:link, a:visited {
+  background-color: #f44336;
+  color: white;
+  padding: 14px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  }
+
+  a:hover, a:active {
+  background-color: red;
+  }
+
+ </style>
+
+ </head>
+ <body>
+ <h1 style="color: green">手机信息</h1><br>
+
+ <table align="center" cellspacing = "2" cellpadding = "13" border = "10" width="700" >
+
+ <thead>
+ <td>品牌</td>
+ <td>型号</td>
+ <td>cpu型号</td>
+ <td>内存大小</td>
+ </thead>
+ {% for row in phones %}
+ <tr>
+ <td>{{row["phonebrand"]}}</td>
+ <td>{{row["phonetype"]}}</td>
+ <td>{{row["cpuinfo"]}}</td>
+ <td>{{row["ramandrominfo"]}}</td>
+
+ </tr>
+ {% endfor %}   
+ </table>
+ <br><br>
+ <a href="/">回到首页</a>
+ </body>
+ </html> 
+ 
