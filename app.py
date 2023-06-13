@@ -1,3 +1,5 @@
+import json
+
 from flask import *
 from flask_sqlalchemy import SQLAlchemy
 
@@ -12,7 +14,7 @@ class Phone(db.Model):
     ramandrominfo = db.Column(db.String(20), nullable=False)
 
     def __repr__(self):
-        return '< %r, %r ,%r ,%r>' % (self.phonebrand, self.phonetype, self.cpuinfo, self.ramandrominfo)
+        return '%r,%r,%r,%r' % (self.phonebrand, self.phonetype, self.cpuinfo, self.ramandrominfo)
 
 
 # 连接数据库
@@ -58,9 +60,23 @@ def saveRecord():
 
 @app.route("/phone_info")
 def phone_info():
-    phones = Phone.query.all()
-    print(phones)
-    return "OK"
+    phones = str(Phone.query.all())
+    phones = str(phones.strip('[]').replace("'", ""))
+    result = []
+    print("原始数据：" + phones)
+    phones = phones.split(", ")
+    for phone in phones:
+        parts = phone.split(',')
+        result.append({
+            "设备": parts[0],
+            "型号": parts[1],
+            "cpu": parts[2],
+            "内存": parts[3]
+
+        })
+    phones_json = json.dumps(result, ensure_ascii=False, sort_keys=False, indent=4, separators=(',', ':')).strip('[]')
+    print("json数据" + phones_json)
+    return render_template('phone_info.html', phones_json=phones_json)
 
 
 if __name__ == "__main__":
