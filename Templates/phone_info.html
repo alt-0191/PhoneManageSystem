@@ -1,16 +1,44 @@
+<style>
+  /* center the table */
+  #myTable {
+    margin: 0 auto;
+  }
+
+  /* add some style to the table */
+  #myTable th {
+    background-color: lightblue;
+    padding: 10px;
+    border: 1px solid black;
+  }
+
+  #myTable td {
+    padding: 10px;
+    border: 1px solid black;
+  }
+
+  /* add some style to the buttons */
+  .btn {
+    margin-left: 10px;
+    background-color: white;
+    border: 1px solid black;
+    cursor: pointer;
+  }
+</style>
+
 <table id="myTable">
   <tr>
     <th>名称</th>
     <th>型号</th>
-    <th>网站</th>
+    <th>处理器</th>
     <th>存储</th>
+    <th>操作</th>
   </tr>
 </table>
 
 <script>
-  let data = [phones_json];
+    let data = [{{phones_json|safe}}];
 
-  let table = document.getElementById("myTable");
+    let table = document.getElementById("myTable");
 
   for (let i = 0; i < data.length; i++) {
     let row = document.createElement("tr");
@@ -18,16 +46,31 @@
     let cell2 = document.createElement("td");
     let cell3 = document.createElement("td");
     let cell4 = document.createElement("td");
+    let cell5 = document.createElement("td");
 
-    cell1.innerHTML = data[i].name;
-    cell2.innerHTML = data[i].alexa;
-    cell3.innerHTML = data[i].site;
-    cell4.innerHTML = data[i].a;
+    cell1.innerHTML = data[i].phonebrand;
+    cell2.innerHTML = data[i].phonetype;
+    cell3.innerHTML = data[i].cpuinfo;
+    cell4.innerHTML = data[i].ramandrominfo;
+
+    // create the edit and delete buttons
+    let editBtn = document.createElement("button");
+    editBtn.innerHTML = "修改";
+    editBtn.className = "btn";
+
+    let deleteBtn = document.createElement("button");
+    deleteBtn.innerHTML = "删除";
+    deleteBtn.className = "btn";
+
+    // append the buttons to the cell
+    cell5.appendChild(editBtn);
+    cell5.appendChild(deleteBtn);
 
     row.appendChild(cell1);
     row.appendChild(cell2);
     row.appendChild(cell3);
     row.appendChild(cell4);
+    row.appendChild(cell5);
 
     table.appendChild(row);
   }

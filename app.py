@@ -68,10 +68,10 @@ def phone_info():
     for phone in phones:
         parts = phone.split(',')
         result.append({
-            "设备": parts[0],
-            "型号": parts[1],
-            "cpu": parts[2],
-            "内存": parts[3]
+            "phonebrand": parts[0],
+            "phonetype": parts[1],
+            "cpuinfo": parts[2],
+            "ramandrominfo": parts[3]
 
         })
     phones_json = json.dumps(result, ensure_ascii=False, sort_keys=False, indent=4, separators=(',', ':')).strip('[]')
