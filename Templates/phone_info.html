@@ -24,6 +24,14 @@
     cursor: pointer;
   }
 </style>
+<form id="editForm" style="display: none;">
+  <label>名称：<input type="text" name="phonebrand" /></label><br />
+  <label>型号：<input type="text" name="phonetype" /></label><br />
+  <label>处理器：<input type="text" name="cpuinfo" /></label><br />
+  <label>存储：<input type="text" name="ramandrominfo" /></label><br />
+  <button id="saveBtn">完成</button>
+</form>
+
 
 <table id="myTable">
   <tr>
@@ -57,10 +65,43 @@
     let editBtn = document.createElement("button");
     editBtn.innerHTML = "修改";
     editBtn.className = "btn";
+    editBtn.addEventListener("click", function() {
+        let form = document.getElementById("editForm");
+        form.style.display = "block";
+        form.phonebrand.value = data[i].phonebrand;
+        form.phonetype.value = data[i].phonetype;
+        form.cpuinfo.value = data[i].cpuinfo;
+        form.ramandrominfo.value = data[i].ramandrominfo;
+
+        let saveBtn = document.getElementById("saveBtn");
+        saveBtn.addEventListener("click", function() {
+        let form = document.getElementById("editForm");
+        let phonebrand = form.phonebrand.value;
+        let phonetype = form.phonetype.value;
+        let cpuinfo = form.cpuinfo.value;
+        let ramandrominfo = form.ramandrominfo.value;
+
+
+        // 发送 HTTP POST 请求到服务器
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST", "/update_phone");
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.send(`phonebrand=${phonebrand}&phonetype=${phonetype}&cpuinfo=${cpuinfo}&ramandrominfo=${ramandrominfo}`);
+
+        // 隐藏表单
+        form.style.display = "none";
+});
+});
+
+    });
+
 
     let deleteBtn = document.createElement("button");
     deleteBtn.innerHTML = "删除";
     deleteBtn.className = "btn";
+    deleteBtn.addEventListener("click", function() {
+  // 删除按钮的点击事件处理程序
+});
 
     // append the buttons to the cell
     cell5.appendChild(editBtn);

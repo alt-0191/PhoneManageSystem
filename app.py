@@ -78,6 +78,23 @@ def phone_info():
     print("json数据" + phones_json)
     return render_template('phone_info.html', phones_json=phones_json)
 
+@app.route("/update_phone", methods=["POST"])
+def update_phone():
+    phonebrand = request.form["phonebrand"]
+    phonetype = request.form["phonetype"]
+    cpuinfo = request.form["cpuinfo"]
+    ramandrominfo = request.form["ramandrominfo"]
+
+    # 更新数据库中的数据
+    phone = Phone.query.filter_by(phonebrand=phonebrand).first()
+    phone.phonetype = phonetype
+    phone.cpuinfo = cpuinfo
+    phone.ramandrominfo = ramandrominfo
+    db.session.commit()
+
+    return "success"
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)
