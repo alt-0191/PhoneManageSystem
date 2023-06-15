@@ -1,0 +1,27 @@
+<form id="loginForm">
+  <label>账号：<input type="text" name="username" /></label><br />
+  <label>密码：<input type="password" name="password" /></label><br />
+  <button id="loginBtn">登录</button>
+
+    {% if error %}
+    <p>{{ error }}</p>
+    {% endif %}
+
+</form>
+
+<script>
+let loginBtn = document.getElementById("loginBtn");
+loginBtn.addEventListener("click", function(event) {
+  event.preventDefault();
+  let form = document.getElementById("loginForm");
+  let username = form.username.value;
+  let password = form.password.value;
+
+  // 发送 HTTP POST 请求到服务器
+  let xhr = new XMLHttpRequest();
+  xhr.open("POST", "/login");
+  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  xhr.send(`username=${username}&password=${password}`);
+});
+
+</script>
