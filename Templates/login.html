@@ -1,27 +1,109 @@
-<form id="loginForm">
-  <label>账号：<input type="text" name="username" /></label><br />
-  <label>密码：<input type="password" name="password" /></label><br />
-  <button id="loginBtn">登录</button>
-
-    {% if error %}
-    <p>{{ error }}</p>
-    {% endif %}
-
-</form>
-
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="../static/js/jquery.min.js"></script>
+    <meta charset="UTF-8">
+    <title>手机信息管理-登陆</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="../static/css/layui.css" media="all">
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="../static/js/modules/respond.min.js"></script>
+    <![endif]-->
+    <style>
+        body {background-image:url("../static/image/bg.jpg");height:100%;width:100%;}
+        #container{height:100%;width:100%;}
+        input:-webkit-autofill {-webkit-box-shadow:inset 0 0 0 1000px #fff;background-color:transparent;}
+        .admin-login-background {width:300px;height:300px;position:absolute;left:50%;top:40%;margin-left:-150px;margin-top:-100px;}
+        .admin-header {text-align:center;margin-bottom:20px;color:#ffffff;font-weight:bold;font-size:40px}
+        .admin-input {border-top-style:none;border-right-style:solid;border-bottom-style:solid;border-left-style:solid;height:50px;width:300px;padding-bottom:0px;}
+        .admin-input::-webkit-input-placeholder {color:#a78369}
+        .layui-icon-username {color:#a78369 !important;}
+        .layui-icon-username:hover {color:#9dadce !important;}
+        .layui-icon-password {color:#a78369 !important;}
+        .layui-icon-password:hover {color:#9dadce !important;}
+        .admin-input-username {border-top-style:solid;border-radius:10px 10px 0 0;}
+        .admin-input-verify {border-radius:0 0 10px 10px;}
+        .admin-button {margin-top:20px;font-weight:bold;font-size:18px;width:300px;height:50px;border-radius:5px;background-color:#a78369;border:1px solid #d8b29f}
+        .admin-icon {margin-left:260px;margin-top:10px;font-size:30px;}
+        i {position:absolute;}
+        .admin-captcha {position:absolute;margin-left:205px;margin-top:-40px;}
+    </style>
+</head>
+<body>
+<div id="container">
+    <div></div>
+    <div class="admin-login-background">
+        <div class="admin-header">
+            <span>login</span>
+        </div>
+        <form class="layui-form" action="/login" method="POST">
+            <div>
+                <i class="layui-icon layui-icon-username admin-icon"></i>
+                <input type="text" name="username" placeholder="请输入用户名" autocomplete="off" class="layui-input admin-input admin-input-username" value="admin">
+            </div>
+            <div>
+                <i class="layui-icon layui-icon-password admin-icon"></i>
+                <input type="password" name="password" placeholder="请输入密码" autocomplete="off" class="layui-input admin-input">
+            </div>
+            <button class="layui-btn admin-button" lay-submit="" lay-filter="login">登 陆</button>
+        </form>
+    </div>
+    <div id="result"></div>
+</div>
+<script src="../static/js/layui.js" charset="utf-8"></script>
 <script>
-let loginBtn = document.getElementById("loginBtn");
-loginBtn.addEventListener("click", function(event) {
-  event.preventDefault();
-  let form = document.getElementById("loginForm");
-  let username = form.username.value;
-  let password = form.password.value;
+    layui.use(['form'], function () {
+        var form = layui.form,
+            layer = layui.layer;
 
-  // 发送 HTTP POST 请求到服务器
-  let xhr = new XMLHttpRequest();
-  xhr.open("POST", "/login");
-  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-  xhr.send(`username=${username}&password=${password}`);
-});
+        // 登录过期的时候，跳出ifram框架
+        if (top.location != self.location) top.location = self.location;
 
+        // 进行登录操作
+        form.on('submit(login)', function (data) {
+            data = data.field;
+            if (data.username == '') {
+                layer.msg('用户名不能为空');
+                return false;
+            }
+            if (data.password == '') {
+                layer.msg('密码不能为空');
+                return false;
+            }
+
+            // 使用$.ajax发送POST请求
+            $.ajax({
+                url: '/login', // 替换为你的服务器端接口URL
+                type: 'POST',
+                data: data,
+                success: function (response) {
+                    // 处理返回的数据
+                    if (response.success) {
+                        layer.msg('登录成功');
+                        // 在这里将处理后的文本显示在网页上
+                        setTimeout(function() {
+                        window.location.reload();
+                        }, 1000);
+                    } else {
+                        console.log(response);
+                        layer.msg(response.msg);
+                    }
+                },
+                error: function () {
+                    layer.msg('请求失败');
+                }
+            });
+
+            return false;
+        });
+
+    });
 </script>
+</body>
+</html>

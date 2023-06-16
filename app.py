@@ -50,13 +50,12 @@ with app.app_context():
     print("数据库连接成功")
 
 
-
 @app.route('/')
 def index():
     if 'role' in session:
         return render_template('phone_view.html')
     else:
-        return render_template('login-2.html')
+        return render_template('login.html')
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -69,19 +68,24 @@ def login():
     print(user)
     if user:
         print(f"数据库中查询到的用户名和密码为: 用户名={username}, 密码={user.password}")
-        print(str(user.password),str(password))
+        print(str(user.password), str(password))
         if str(user.password) == str(password):
             print("账号密码正确")
             session['role'] = user.role
             print(f"已设置权限组为{user.role}")
             print("登录成功")
-            return jsonify({"code": 0, "msg": "登录成功"})
+            return jsonify({"code": 0, 'success': True, "msg": "登录成功"})
         else:
             print("密码错误")
-            return jsonify({"code": 1, "msg": "密码错误"})
+            return jsonify({"code": 1, 'success': False, "msg": "密码错误"})
     else:
         print("用户不存在")
-        return jsonify({"code": 2, "msg": "用户不存在"})
+        return jsonify({"code": 2, 'success': False, "msg": "用户不存在"})
+
+
+@app.route("/logout")
+def logout():
+    session.clear()
 
 
 @app.route("/add_phone")

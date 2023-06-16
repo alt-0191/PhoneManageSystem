@@ -60,7 +60,7 @@ def main():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'GET':
-        return render_template('login.html')
+        return render_template('login1.html.bak')
     if request.method == 'POST':
         return redirect('/phone_info')
 

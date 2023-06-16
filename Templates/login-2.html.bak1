@@ -80,16 +80,17 @@ $.ajax({
   data: {username: data.username, password: data.password},
   success: function(res){
     // 解析响应结果
-      const obj = JSON.parse(res);
+      let obj = JSON.parse(res);
+      console.log(obj)
       // 处理响应结果
-    if (obj.code == 0) {
+    if (res.code == 0) {
         layer.msg('登录成功');
 
       // 登录成功，跳转到 phone_view.html
       window.location.href = "phone_view.html";
     } else {
       // 登录失败，显示错误信息
-        layer.msg(obg.msg);
+        layer.msg('res.msg');
     }
   },
   error: function(err){

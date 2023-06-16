@@ -152,4 +152,17 @@ table tbody tr:not([id=thead]):hover {
   height: 36px;
   background-color: white;
 }
+
+.avatar {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  width: 40px;
+  height: 40px;
+  background-image: url("../../static/image/avatar.png");
+  background-size: cover;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
 /*# sourceMappingURL=studentInformationManagementSystem.css.map */
