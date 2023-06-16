@@ -35,15 +35,11 @@ class User(db.Model):
         self.password = password
         self.role = role
 
-    def __repr__(self):
-        return '%r,%r,%r' % (self.username, self.password, self.role)
-
 
 # 连接数据库
 try:
     app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:123456@localhost/phone'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    print("数据库连接成功")
 except:
     print("数据库连接失败")
 finally:
@@ -51,42 +47,41 @@ finally:
 
 with app.app_context():
     db.create_all()
+    print("数据库连接成功")
+
 
 
 @app.route('/')
 def index():
     if 'role' in session:
-        return render_template('index.html')
+        return render_template('phone_view.html')
     else:
-        return redirect(url_for('login'))
+        return render_template('login-2.html')
 
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-        print(f"从前端获取到的账号密码为: 用户名={username}, 密码={password}")
-        user = User.query.filter_by(username=username).first()
+    data = request.form
+    username = data['username']
+    password = data['password']
+    print(f"从前端获取到的账号密码为: 用户名={username}, 密码={password}")
+    user = User.query.filter_by(username=username).first()
+    print(user)
+    if user:
         print(f"数据库中查询到的用户名和密码为: 用户名={username}, 密码={user.password}")
-        print(user, username)
-        user_str = (str(user)).split(',')
-        print(user_str[0])
-        if user_str[0].strip("'") == username:
-            if user_str[1].strip("'") == password:
-                print("账号密码正确")
-                session['role'] = user.role
-                print(f"已设置权限组为{user.role}")
-                return redirect('/phone_info')
-            else:
-                print("密码错误")
-                return render_template('login.html', error='密码错误')
+        print(str(user.password),str(password))
+        if str(user.password) == str(password):
+            print("账号密码正确")
+            session['role'] = user.role
+            print(f"已设置权限组为{user.role}")
+            print("登录成功")
+            return jsonify({"code": 0, "msg": "登录成功"})
         else:
-            print("用户不存在")
-            return render_template('login.html', error='用户名不存在')
+            print("密码错误")
+            return jsonify({"code": 1, "msg": "密码错误"})
     else:
-        print("登陆成功，跳转")
-        return render_template('login.html')
+        print("用户不存在")
+        return jsonify({"code": 2, "msg": "用户不存在"})
 
 
 @app.route("/add_phone")
