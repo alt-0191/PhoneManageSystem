@@ -4,7 +4,6 @@ from flask import *
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-app.secret_key = 'fjlsdfjkk23'
 db = SQLAlchemy()
 
 '''定义Phone模型用户添加删除'''
@@ -54,39 +53,21 @@ with app.app_context():
 
 
 @app.route('/')
-def index():
-    if 'role' in session:
-        return render_template('index.html')
-    else:
-        return redirect(url_for('login'))
+def main():
+    return redirect('/phone_info')
 
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-        print(f"从前端获取到的账号密码为: 用户名={username}, 密码={password}")
-        user = User.query.filter_by(username=username).first()
-        print(f"数据库中查询到的用户名和密码为: 用户名={username}, 密码={user.password}")
-        print(user, username)
-        user_str = (str(user)).split(',')
-        print(user_str[0])
-        if user_str[0].strip("'") == username:
-            if user_str[1].strip("'") == password:
-                print("账号密码正确")
-                session['role'] = user.role
-                print(f"已设置权限组为{user.role}")
-                return redirect('/phone_info')
-            else:
-                print("密码错误")
-                return render_template('login.html', error='密码错误')
-        else:
-            print("用户不存在")
-            return render_template('login.html', error='用户名不存在')
-    else:
-        print("登陆成功，跳转")
+    if request.method == 'GET':
         return render_template('login.html')
+    if request.method == 'POST':
+        return redirect('/phone_info')
+
+
+@app.route("/phone_info", methods=['GET', 'POST'])
+def phone_info():
+    return render_template('phone_info.html')
 
 
 @app.route("/add_phone")
@@ -126,28 +107,6 @@ def saveRecord():
         return render_template("success_record.html", msg=msg)
 
 
-@app.route("/phone_info")
-def phone_info():
-    phones = str(Phone.query.all())
-    phones = str(phones.strip('[]').replace("'", ""))
-    result = []
-    print("原始数据：" + phones)
-    phones = phones.split(", ")
-    for phone in phones:
-        parts = phone.split(',')
-        result.append({
-            "id": parts[0],
-            "phonebrand": parts[1],
-            "phonetype": parts[2],
-            "cpuinfo": parts[3],
-            "ramandrominfo": parts[4]
-
-        })
-    phones_json = json.dumps(result, ensure_ascii=False, sort_keys=False, indent=4, separators=(',', ':')).strip('[]')
-    print("json数据" + phones_json)
-    return render_template('phone_view.html', phones_json=phones_json)
-
-
 @app.route("/update_phone", methods=["POST"])
 def update_phone():
     id = request.form["id"]
@@ -175,3 +134,5 @@ def update_phone():
 
 if __name__ == "__main__":
     app.run(debug=True)
+    app.config['SECRET_KEY'] = 'SDN32NLFDO3JDFJD'
+    app.config['SESSION_TYPE'] = 'filesystem'

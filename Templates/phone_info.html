@@ -1,9 +1,13 @@
-<style>
-  /* center the table */
-  #myTable {
-    margin: 0 auto;
-  }
-
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Phone Information</title>
+  </head>
+  <style>
+      /* center the table */
+      #myTable {
+        margin: 0 auto;
+      }
   /* add some style to the table */
   #myTable th {
     background-color: lightblue;
@@ -24,6 +28,7 @@
     cursor: pointer;
   }
 </style>
+  <body>
 <form id="editForm" style="display: none;">
   <label>名称：<input type="text" name="phonebrand" /></label><br />
   <label>型号：<input type="text" name="phonetype" /></label><br />
@@ -43,7 +48,7 @@
     <th>操作</th>
   </tr>
 </table>
-
+  </body>
 <script>
 let data = [{{ phones_json | safe }}];
 
@@ -122,3 +127,4 @@ xhr.send(`id=${form.id.value}&phonebrand=${phonebrand}&phonetype=${phonetype}&cp
 form.style.display = "none";
 });
 </script>
+</html>
