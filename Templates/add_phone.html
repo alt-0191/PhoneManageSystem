@@ -1,58 +1,66 @@
 <!DOCTYPE html>
- <html>
- <head>
- <title>添加学生</title>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Demo</title>
+  <!-- 请勿在项目正式环境中引用该 layui.css 地址 -->
+  <link href="../static/css/layui2.8.7.css" rel="stylesheet">
+</head>
+<body>
+<form class="layui-form" action="">
+  <div class="layui-form-item">
+    <label class="layui-form-label">验证必填项</label>
+    <div class="layui-input-block">
+      <input type="text" name="username" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+    </div>
+  </div>
+      <div class="layui-form-item">
+    <label class="layui-form-label">验证必填项</label>
+    <div class="layui-input-block">
+      <input type="text" name="username" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+    </div>
+  </div>
+      <div class="layui-form-item">
+    <label class="layui-form-label">验证必填项</label>
+    <div class="layui-input-block">
+      <input type="text" name="username" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+    </div>
+  </div>
+      <div class="layui-form-item">
+    <label class="layui-form-label">验证必填项</label>
+    <div class="layui-input-block">
+      <input type="text" name="username" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <div class="layui-input-block">
+      <button type="submit" class="layui-btn" lay-submit lay-filter="demo1">立即提交</button>
+      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+    </div>
+  </div>
+</form>
 
-  <style>
-   body{
-    text-align: center;
-   }
+<!-- 请勿在项目正式环境中引用该 layui.js 地址 -->
+<script src="//unpkg.com/layui@2.8.7/dist/layui.js"></script>
+<script>
+layui.use(['form', 'laydate', 'util'], function(){
+  var form = layui.form;
+  var layer = layui.layer;
 
-   input[type=text] {
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    box-sizing: border-box;
-   }
+  // 提交事件
+  form.on('submit(demo1)', function(data){
+    var field = data.field; // 获取表单字段值
+    // 显示填写结果，仅作演示用
+    layer.alert(JSON.stringify(field), {
+      title: '当前填写的字段值'
+    });
+    // 此处可执行 Ajax 等操作
+    // …
+    return false; // 阻止默认 form 跳转
+  });
 
-   input[type=email] {
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    box-sizing: border-box;
-   }
-
-   input[type=submit] {
-
-    width: 100%;
-    background-color: #4CAF50;
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-   }
-
-   input[type=submit]:hover {
-    background-color: #45a049;
-   }
-  </style>
- </head>
- <body>
- <h1>学生信息</h1>
- <form action = "/saverecord" method="post">
-
- <table align="center" cellspacing = "2" cellpadding = "13" border = "10" width="700">
-
-  <tr><td>品牌</td><td><input type="text" name="phonebrand" ></td></tr>
-  <tr><td>型号</td><td><input type="text" name="phonetype"></td></tr>
-  <tr><td>cpu型号</td><td><input type="text" name="cpuinfo"></td></tr>
-  <tr><td>内存大小</td><td><input type="text" name="ramandrominfo"></td></tr>
-
-  <tr><td></td><td><input type="submit" value="Submit"></td></tr>
-
- </table>
- </form>
- </body>
- </html>  
+});
+</script>
+</body>
+</html>

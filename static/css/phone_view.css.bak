@@ -2,7 +2,40 @@
   margin: 0;
   padding: 0;
 }
-
+a {
+  text-decoration: none;
+  color: white;
+  width: 30px;
+  height: 20px;
+  color: white;
+  border-radius: 30px;
+  cursor: pointer;
+  transition:0.2s;
+  border-style:none;
+  background-color: #409eff;
+  border-color: #409eff;
+  padding-top: 12px;
+  padding-right: 15px;
+  padding-bottom: 12px;
+  padding-left: 15px;
+}
+a2 {
+  text-decoration: none;
+  color: white;
+  width: 30px;
+  height: 20px;
+  color: white;
+  border-radius: 30px;
+  cursor: pointer;
+  transition:0.2s;
+  border-style:none;
+  background-color: red;
+  border-color: red;
+  padding-top: 12px;
+  padding-right: 15px;
+  padding-bottom: 12px;
+  padding-left: 15px;
+}
 .sbg {
   position: absolute;
   top: 0;
@@ -24,7 +57,7 @@ header h1 {
 header hr {
 
 }
-main #adbt {
+main #divv {
   margin-left: 70px;
 }
 main button {
@@ -37,7 +70,7 @@ main button {
   transition:0.2s;
   border-style:none;
 }
-main button.gre {
+main button.add {
   background-color: #5cb85c;
 }
 main button.red {
@@ -114,68 +147,22 @@ table tbody tr:not([id=thead]):hover {
   height: 36px;
   background-color: #5cb85c;
 }
-.layui-nav-child dd a {
-    font-size: 15px !important;
-}
 .achaesi .scbt button:last-of-type {
   width: 85px;
   height: 36px;
   background-color: white;
 }
-buttonblue {
-  text-decoration: none;
-  color: white;
-  width: 30px;
-  height: 20px;
-  color: white;
-  border-radius: 30px;
-  cursor: pointer;
-  transition:0.2s;
-  border-style:none;
-  background-color: #409eff;
-  border-color: #409eff;
-  padding-top: 10px;
-  padding-right: 15px;
-  padding-bottom: 10px;
-  padding-left: 15px;
-}
-buttonred {
-  text-decoration: none;
-  color: white;
-  width: 30px;
-  height: 20px;
-  color: white;
-  border-radius: 30px;
-  cursor: pointer;
-  transition:0.2s;
-  border-style:none;
-  background-color: red;
-  border-color: red;
-  padding-top: 10px;
-  padding-right: 15px;
-  padding-bottom: 10px;
-  padding-left: 15px;
-}
-#back-to-top {
+
+.avatar {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
-  display: none;
-  width: 100px;
+  top: 10px;
+  right: 10px;
+  width: 40px;
   height: 40px;
-  background-color: #333;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
+  background-image: url("../../static/image/avatar.png");
+  background-size: cover;
+  border-radius: 50%;
   cursor: pointer;
-  font-size: 14px;
 }
-
-#back-to-top:hover {
-  background-color: #555;
-}
-
-
-
 
 /*# sourceMappingURL=studentInformationManagementSystem.css.map */

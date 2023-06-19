@@ -1,46 +1,16 @@
 let objKeys = ["id", "phonebrand", "phonetype", "cpuinfo", "ramandrominfo"];
-    $("#submit").click(function () {//提交按钮点击触发的动作
-        let phone = {};
-        let isEmpty = false;
-        $("#asi").find("input").each(function (index, domEle) {
-            if (!domEle.value) {//如果添加时表单内有值为空，则不进行添加
-                isEmpty = true;
-                /*return;*/
-            }
-            phone[objKeys[index]] = domEle.value;
-        });
-        if (!isEmpty) {
-            students[stuNumber] = phone;
-            stuNumber++;
-            $("#en").text(stuNumber);
-            let lpren = $("tbody tr").length - 1;//最后一页剩余的条目数;
-            if (no + 10 > stuNumber && lpren < 10) {//增加一个append函数，如果显示的是最后一页那么需要更新界面。
-                $("tbody tr:last").after("<tr>" + "<td><input type=\"checkbox\"></td>" + "<td>" + (no + lpren + 1) + "</td>" + "<td>" + phone.schoolNumber + "</td>" + "<td>" + phone.name + "</td>" + "<td>" + phone.academy + "</td>" + "<td>" + phone.major + "</td>" + "<td>"
-                    + phone.grade + "</td>" + "<td>" + phone.class + "</td>" + "<td>" + phone.age + "</td>" + "<td><a href=\"javascript:;\" class=\"check\">查看</a> <a href=\"javascript:;\" class=\"modify\">修改</a></td>" + "</tr>");
-
-            }
-        }
-        $("#sbg").removeClass("sbg");
-        $("#asi").hide();
-
-    });
 
 
     let modifyNumber;
 
     $("tbody").on("click", ".modify", function () {//点击修改按钮触发的动作,解决了jQuery出现的新添加元素点击事件无效问题
-        $("#sbg").addClass("sbg");
-        $("#chasi").show();
-        modifyNumber = $(this).parent().parent().find("td")[1].innerText - 1;
-        let i = 0;
-        $("#chasi").find("input").each(function (index, domEle) {
-            domEle.value = phone_json[modifyNumber][objKeys[i++]];
+        layer.open({
+            type: 2,
+            area: ['700px', '450px'],
+            fixed: false, //不固定
+            maxmin: true,
+            content: 'https://layui.itze.cn'
         });
-    });
-
-    $(".cancel").click(function () {//多个取消按钮点击触发的动作
-        $("#sbg").removeClass("sbg");
-        $(".achaesi").hide();
     });
 
     $("tbody").on("click", ".del", function () {
@@ -64,26 +34,6 @@ let objKeys = ["id", "phonebrand", "phonetype", "cpuinfo", "ramandrominfo"];
           });
         });
       }
-    });
-
-
-    $("#save").click(function () {//点击保存按钮触发的动作
-                $("#chasi").find("input").each(function (index, domEle) {
-                    if (domEle.value)
-                        students[modifyNumber][objKeys[index]] = domEle.value;
-                });
-                $("tbody tr").eq(modifyNumber - no + 1).remove();
-                $("tbody tr").eq(modifyNumber - no).after("<tr>" + "<td><input type=\"checkbox\"></td>" + "<td>" + (modifyNumber - no + 1) + "</td>" + "<td>" + students[modifyNumber].schoolNumber + "</td>" + "<td>" + students[modifyNumber].name + "</td>" + "<td>" + students[modifyNumber].academy + "</td>" + "<td>" + students[modifyNumber].major + "</td>" + "<td>"
-                    + students[modifyNumber].grade + "</td>" + "<td>" + students[modifyNumber].class + "</td>" + "<td>" + students[modifyNumber].age + "</td>" + "<td><a href=\"javascript:;\" class=\"check\">查看</a> <a href=\"javascript:;\" class=\"modify\">修改</a></td>" + "</tr>");
-                /*$("tbody tr:first").siblings().remove();//清空界面
-                for (let i = no; i < no+10; i++) {//初始页面信息显示
-                    let student = $("<tr>" + "<td><input type=\"checkbox\"></td>" + "<td>" + (i + 1) + "</td>" + "<td>" + students[i].schoolNumber + "</td>" + "<td>" + students[i].name + "</td>" + "<td>" + students[i].academy + "</td>" + "<td>" + students[i].major + "</td>" + "<td>"
-                        + students[i].grade + "</td>" + "<td>" + students[i].class + "</td>" + "<td>" + students[i].age + "</td>" + "<td><a href=\"javascript:;\" class=\"check\">查看</a> <a href=\"javascript:;\" class=\"modify\">修改</a></td>" + "</tr>");
-                    $("tbody").append(student);
-                }
-                $("tbody").trigger("create");*/
-                $("#sbg").removeClass("sbg");
-                $("#chasi").hide();
     });
 
 

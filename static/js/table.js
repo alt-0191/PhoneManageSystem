@@ -28,13 +28,21 @@ for (let i = 0; i < phone_json.length; i++) {
     tr.appendChild(storage_td);
 
     // Create the modify and delete buttons
-    let modify_btn = document.createElement('a');
+    let modify_btn = document.createElement('buttonblue');
     modify_btn.href = '#';
     modify_btn.className = 'modify';
     modify_btn.textContent = '修改';
+        modify_btn.addEventListener('click', function(event) {
+        layer.open({
+          type: 2,
+          area: ['800px', '600px'],
+          fixed: true, //不固定
+          maxmin: true,
+          content: 'http://127.0.0.1:5000/add_phone'
+});
+        });
 
-    
-    let delete_btn = document.createElement('a');
+    let delete_btn = document.createElement('buttonred');
     delete_btn.href = '#';
     delete_btn.className = 'del';
     delete_btn.textContent = '删除';
@@ -99,18 +107,6 @@ let objKeys = ["id", "phonebrand", "phonetype", "cpuinfo", "ramandrominfo"];
 
     });
 
-
-    let modifyNumber;
-
-    $("tbody").on("click", ".modify", function () {//点击修改按钮触发的动作,解决了jQuery出现的新添加元素点击事件无效问题
-        $("#sbg").addClass("sbg");
-        $("#chasi").show();
-        modifyNumber = $(this).parent().parent().find("td")[1].innerText - 1;
-        let i = 0;
-        $("#chasi").find("input").each(function (index, domEle) {
-            domEle.value = phone_json[modifyNumber][objKeys[i++]];
-        });
-    });
 
     $(".cancel").click(function () {//多个取消按钮点击触发的动作
         $("#sbg").removeClass("sbg");
