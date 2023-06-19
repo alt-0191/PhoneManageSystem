@@ -53,7 +53,7 @@ with app.app_context():
 @app.route('/')
 def index():
     if 'role' in session:
-        return render_template('phone_view.html')
+        return redirect(url_for('phone_info'))
     else:
         return render_template('login.html')
 
@@ -98,9 +98,13 @@ def add_phone():
 
 @app.route("/delete_phone", methods=["POST"])
 def delete_phone():
+    deldata = request.form
+    print(deldata)
     if 'role' in session and session['role'] == 'admin':
         id = request.form["id"]
         phone = Phone.query.filter_by(id=id).first()
+        print(phone)
+        print("删除了一条记录")
         db.session.delete(phone)
         db.session.commit()
         return "success"

@@ -5,6 +5,8 @@
     <title>Student Information Management System</title>
 
     <link rel="stylesheet" href="../static/css/phone_view.css">
+    <script src="../static/js/jquery.min.js"></script>
+
 </head>
 <body>
 <div>
@@ -19,18 +21,22 @@
     </header>
     <main>
         <div>
-            <div id="adbt">
-                <button class="gre" id="add">新增</button>
+            <div id="divv">
+                <button class="add" id="add">新增</button>
             </div>
             <table>
                 <tbody>
                 <tr id="thead">
+                    <td>id</td>
                     <td>品牌</td>
                     <td>型号</td>
                     <td>处理器</td>
                     <td>存储</td>
                     <td>操作</td>
                 </tr>
+                <script>
+                    let phone_json = [{{ phones_json | safe }}];
+                </script>
                <script src="../static/js/table.js"></script>
                 </tbody>
             </table>
@@ -41,11 +47,11 @@
 <div class="achaesi" id="asi">
 <!--    <form action="" method="post">-->
     <h2>新增学生信息</h2>
-    <div class="mod">
-        <div><label for="assn">品牌</label> <input id="assn" type="text" placeholder="11503080201" required="required" maxlength="11" pattern="^[0-9]{11}$" oninvalid="setCustomValidity('请输入11位的数字组合')"></div>
-        <div><label for="asn">型号</label> <input id="asn" type="text" placeholder="雷军" required="required" minlength="2" maxlength="8" pattern="^[\u4e00-\u9fa5]+$" oninvalid="setCustomValidity('请输入正确的姓名')"></div>
-        <div><label for="asac">处理器</label> <input id="asac" type="text" placeholder="两江人工智能学院" required="required" minlength="3" maxlength="10" pattern="^[\u4e00-\u9fa5]+$" oninvalid="setCustomValidity('请输入正确的学院名')"></div>
-        <div><label for="asm">存储</label> <input id="asm" type="text" placeholder="软件工程" required="required" minlength="3" maxlength="12" pattern="^[\u4e00-\u9fa5]+$" oninvalid="setCustomValidity('请输入正确的专业名')"></div>
+    <div class="mod">A
+        <div><label for="phonebrand">品牌</label> <input id="phonebrand" type="text" required="required" minlength="1" oninvalid="setCustomValidity('请输入11位的数字组合')"></div>
+        <div><label for="phonetype">型号</label> <input id="phonetype" type="text" required="required" minlength="1" oninvalid="setCustomValidity('请输入正确的姓名')"></div>
+        <div><label for="cpuinfo">处理器</label> <input id="cpuinfo" type="text" required="required" minlength="1" oninvalid="setCustomValidity('请输入正确的学院名')"></div>
+        <div><label for="ramandrominfo">存储</label> <input id="ramandrominfo" type="text" required="required" minlength="3" oninvalid="setCustomValidity('请输入正确的专业名')"></div>
     </div>
     <hr/>
     <div class="scbt">
@@ -58,36 +64,17 @@
 <!--    <form action="" method="post">-->
     <h2>修改学生信息</h2>
     <div class="modify">
-        <div><label for="chassn">phonebrand</label> <input id="chassn" type="text" readonly required="required" maxlength="11" pattern="^[0-9]{11}$" oninvalid="setCustomValidity('请输入11位的数字组合')"></div>
-        <div><label for="chasn">phonetype</label> <input id="chasn" type="text" required="required" minlength="2" maxlength="8" pattern="^[\u4e00-\u9fa5]+$" oninvalid="setCustomValidity('请输入正确的姓名')"></div>
-        <div><label for="chasac">phonetype</label> <input id="chasac" type="text" required="required" minlength="3" maxlength="10" pattern="^[\u4e00-\u9fa5]+$" oninvalid="setCustomValidity('请输入正确的学院名')"></div>
-        <div><label for="chasm">cpuinfo</label> <input id="chasm" type="text" required="required" minlength="3" maxlength="12" pattern="^[\u4e00-\u9fa5]+$" oninvalid="setCustomValidity('请输入正确的专业名')"></div>
-        <div><label for="chasg">ramandrominfo</label> <input id="chasg" type="text" required="required" max="2020" maxlength="4" pattern=^[0-9]{4}$" oninvalid="setCustomValidity('请输入正确的年级')"></div>
+        <div><label for="phonebrand">品牌</label> <input id="phonebrand" type="text" required="required" minlength="1" oninvalid="setCustomValidity('请输入正确的姓名')"></div>
+        <div><label for="phonetype">型号</label> <input id="phonetype" type="text" required="required" minlength="1" oninvalid="setCustomValidity('请输入正确的姓名')"></div>
+        <div><label for="cpuinfo">处理器</label> <input id="cpuinfo" type="text" required="required" minlength="1" oninvalid="setCustomValidity('请输入正确的学院名')"></div>
+        <div><label for="ramandrominfo">存储</label> <input id="ramandrominfo" type="text" required="required" minlength="1" oninvalid="setCustomValidity('请输入正确的专业名')"></div>
     </div>
     <hr/>
     <div class="scbt">
         <button type="submit" id="save">保存</button>
         <button class="cancel">取消</button>
     </div>
-<!--    </form>-->
+
 </div>
-<div class="achaesi" id="chesi">
-    <h2>查看学生信息</h2>
-    <div class="mod">
-        <div><label for="chessn">学号</label> <input type="text" readonly id="chessn"></div>
-        <div><label for="chesn">姓名</label> <input type="text" readonly id="chesn"></div>
-        <div><label for="chesac">学院</label> <input type="text" readonly id="chesac"></div>
-        <div><label for="chesm">专业</label> <input type="text" readonly id="chesm"></div>
-        <div><label for="chesg">年级</label> <input type="text" readonly id="chesg"></div>
-        <div><label for="chesc">班级</label> <input type="text" readonly id="chesc"></div>
-        <div><label for="chesag">年龄</label> <input type="text" readonly id="chesag"></div>
-    </div>
-    <hr/>
-    <div class="scbt">
-        <button class="cancel">取消</button>
-    </div>
-</div>
-    <script src="../static/js/jquery.min.js"></script>
-    <script src="../static/js/mod.js"></script>
 </body>
 </html>

@@ -57,7 +57,7 @@ header h1 {
 header hr {
 
 }
-main #adbt {
+main #divv {
   margin-left: 70px;
 }
 main button {
@@ -70,7 +70,7 @@ main button {
   transition:0.2s;
   border-style:none;
 }
-main button.gre {
+main button.add {
   background-color: #5cb85c;
 }
 main button.red {
