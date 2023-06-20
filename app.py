@@ -65,6 +65,7 @@ def index():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+
     data = request.form
     username = data['username']
     password = data['password']
