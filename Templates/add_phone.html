@@ -62,7 +62,7 @@ layui.use(['form', 'laydate', 'util'], function(){
     url: "/saverecord",
     data: field,
     success: function(response) {
-      // 成功时的处理
+        window.location.reload()
     },
     error: function() {
       // 失败时的处理

@@ -132,7 +132,7 @@ def saveRecord():
         print(phone)  # 创建一个Add对象
         db.session.add(phone)
         db.session.commit()
-        return render_template("success_record.html", msg=msg)
+        return "success"
 
 
 @app.route("/phone_info")

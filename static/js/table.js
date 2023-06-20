@@ -34,12 +34,17 @@ for (let i = 0; i < phone_json.length; i++) {
     modify_btn.setAttribute('data-id', phone_json[i].id);
     modify_btn.textContent = '修改';
         modify_btn.addEventListener('click', function(event) {
-        layer.open({
-          type: 2,
-          area: ['800px', '600px'],
-          fixed: true, //不固定
-          maxmin: true,
-          content: 'http://127.0.0.1:5000/add_phone'
+            var id = $(this).data('id'); // 获取按钮的自定义属性值作为id值
+              console.log("id值：" + id);
+              $.ajax({
+                type: "POST",
+                url: "/get_phone",
+                data: {id: id},
+                success: function(response) {
+                  // 成功时的处理
+                  // 将返回的数据填写到modify_phone.html页面中
+                },
+                error: function() {
                   // 失败时的处理
                 }
               });
