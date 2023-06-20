@@ -51,6 +51,11 @@ with app.app_context():
 
 
 @app.route('/')
+def helloworld():
+    return redirect(url_for('index'))
+
+
+@app.route('/index')
 def index():
     if 'role' in session:
         return redirect(url_for('phone_info'))
@@ -86,6 +91,7 @@ def login():
 @app.route("/logout")
 def logout():
     session.clear()
+    return redirect(url_for('index'))
 
 
 @app.route("/add_phone")
@@ -112,7 +118,7 @@ def delete_phone():
         return '您没有权限执行此操作'
 
 
-@app.route("/saverecord", methods=["POST", "GET"])
+@app.route("/saverecord", methods=["POST"])
 def saveRecord():
     msg = "saved"
     if request.method == "POST":
@@ -151,28 +157,34 @@ def phone_info():
     return render_template('phone_view.html', phones_json=phones_json)
 
 
-@app.route("/update_phone", methods=["POST"])
-def update_phone():
+@app.route("/get_phone", methods=["POST"])
+def get_phone():
     id = request.form["id"]
     phone = Phone.query.filter_by(id=id).first()
-    print(phone)
-    phonebrand = request.form["phonebrand"]
-    phonetype = request.form["phonetype"]
-    cpuinfo = request.form["cpuinfo"]
-    ramandrominfo = request.form["ramandrominfo"]
+    phone_data = {
+        "id": phone.id,
+        "phonebrand": phone.phonebrand,
+        "phonetype": phone.phonetype,
+        "cpuinfo": phone.cpuinfo,
+        "ramandrominfo": phone.ramandrominfo
+    }
+    return jsonify(phone_data)
 
-    # 更新数据库中的数据
-    print(phone)
-    phone.phonebrand = phonebrand
-    print(phonebrand)
-    phone.phonetype = phonetype
-    print(phonetype)
-    phone.cpuinfo = cpuinfo
-    print(cpuinfo)
-    phone.ramandrominfo = ramandrominfo
-    print(ramandrominfo)
+
+@app.route("/modify_phone")
+def update_phone():
+    return render_template("modify_phone.html", id=id)
+
+
+@app.route("/modify", methods=["POST"])
+def modify():
+    id = request.form["id"]
+    phone = Phone.query.filter_by(id=id).first()
+    phone.phonebrand = request.form["phonebrand"]
+    phone.phonetype = request.form["phonetype"]
+    phone.cpuinfo = request.form["cpuinfo"]
+    phone.ramandrominfo = request.form["ramandrominfo"]
     db.session.commit()
-
     return "success"
 
 

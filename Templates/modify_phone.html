@@ -13,25 +13,25 @@
   <div class="layui-form-item">
     <label class="layui-form-label">品牌</label>
     <div class="layui-input-block">
-      <input type="text" name="phonebrand" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+      <input type="text" name="phonebrand" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input" value="{{phonebrand}}">
     </div>
   </div>
       <div class="layui-form-item">
     <label class="layui-form-label">型号</label>
     <div class="layui-input-block">
-      <input type="text" name="phonetype" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+      <input type="text" name="phonetype" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input" value="{{phonetype}}">
     </div>
   </div>
       <div class="layui-form-item">
     <label class="layui-form-label">处理器</label>
     <div class="layui-input-block">
-      <input type="text" name="cpuinfo" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+      <input type="text" name="cpuinfo" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input" value="{{cpuinfo}}">
     </div>
   </div>
       <div class="layui-form-item">
     <label class="layui-form-label">存储</label>
     <div class="layui-input-block">
-      <input type="text" name="ramandrominfo" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+      <input type="text" name="ramandrominfo" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input" value="{{ramandrominfo}}">
     </div>
   </div>
   <div class="layui-form-item">
@@ -39,6 +39,39 @@
       <button type="submit" class="layui-btn" lay-submit lay-filter="demo1">立即提交</button>
       <button type="reset" class="layui-btn layui-btn-primary">重置</button>
     </div>
+      <script>
+          $(document).ready(function() {
+  var id = getUrlParameter("id"); // 获取URL中的id值
+              console.log(id)
+  // 发送ajax请求获取手机信息
+  $.ajax({
+    type: "POST",
+    url: "/get_phone",
+    data: {id: id},
+    success: function(response) {
+      // 成功时的处理
+      // 将返回的数据填写到表单中
+      $("input[name='id']").val(response.id);
+      $("input[name='phonebrand']").val(response.phonebrand);
+      $("input[name='phonetype']").val(response.phonetype);
+      $("input[name='cpuinfo']").val(response.cpuinfo);
+      $("input[name='ramandrominfo']").val(response.ramandrominfo);
+    },
+    error: function() {
+      // 失败时的处理
+    }
+  });
+});
+
+// 获取URL中的参数值
+function getUrlParameter(name) {
+  name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+  var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+  var results = regex.exec(location.search);
+  return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+}
+
+</script>
   </div>
 </form>
 
@@ -59,7 +92,7 @@ layui.use(['form', 'laydate', 'util'], function(){
   // 使用ajax发送数据
   $.ajax({
     type: "POST",
-    url: "/saverecord",
+    url: "/update_phone",
     data: field,
     success: function(response) {
       // 成功时的处理

@@ -31,6 +31,7 @@ for (let i = 0; i < phone_json.length; i++) {
     let modify_btn = document.createElement('buttonblue');
     modify_btn.href = '#';
     modify_btn.className = 'modify';
+    modify_btn.setAttribute('data-id', phone_json[i].id);
     modify_btn.textContent = '修改';
         modify_btn.addEventListener('click', function(event) {
         layer.open({
@@ -39,8 +40,19 @@ for (let i = 0; i < phone_json.length; i++) {
           fixed: true, //不固定
           maxmin: true,
           content: 'http://127.0.0.1:5000/add_phone'
+                  // 失败时的处理
+                }
+              });
+                      layer.open({
+                          type: 2,
+                          area: ['800px', '600px'],
+                          fixed: true, //不固定
+                          maxmin: true,
+                          content: "http://127.0.0.1:5000/modify_phone?id=" + id
+                      });
+
 });
-        });
+
 
     let delete_btn = document.createElement('buttonred');
     delete_btn.href = '#';
@@ -66,6 +78,7 @@ for (let i = 0; i < phone_json.length; i++) {
         });
       }
     });
+
 
 
     // Create a table cell to hold the buttons

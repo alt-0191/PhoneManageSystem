@@ -5,7 +5,7 @@
     <title>手机管理系统</title>
 
     <link rel="stylesheet" href="../static/css/phone_view.css">
-    <link href="../static/css/layui.css" rel="stylesheet">
+    <link href="../static/css/layui2.8.7.css" rel="stylesheet">
     <script src="../static/js/jquery.min.js"></script>
     <script src="../static/js/layer/layer.js"></script>
 
@@ -25,7 +25,7 @@
                         <img src="../static/image/avatar.png" class="layui-nav-img">
                     </a>
                     <dl class="layui-nav-child">
-                        <dd style="text-align: center; font-size: 10px !important;"><a href="">退出登录</a></dd>
+                        <dd style="text-align: center; font-size: 10px !important;"><a href="/logout">退出登录</a></dd>
                     </dl>
                 </li>
             </div>
@@ -42,7 +42,7 @@
     <main>
         <div>
             <div id="adbt">
-                <button class="gre" id="add">新增</button>
+                <script src="../static/js/addbotton.js"></script>
             </div>
             <table>
                 <tbody>
@@ -81,39 +81,5 @@
     });
   </script>
 
-</div>
-<div id="sbg"></div><!--增删改查时的阴影背景-->
-<div class="achaesi" id="asi">
-<!--    <form action="" method="post">-->
-    <h2>新增学生信息</h2>
-    <div class="mod">
-        <div><label for="phonebrand">品牌</label> <input id="phonebrand" type="text" required="required" minlength="1" oninvalid="setCustomValidity('请输入11位的数字组合')"></div>
-        <div><label for="phonetype">型号</label> <input id="phonetype" type="text" required="required" minlength="1" oninvalid="setCustomValidity('请输入正确的姓名')"></div>
-        <div><label for="cpuinfo">处理器</label> <input id="cpuinfo" type="text" required="required" minlength="1" oninvalid="setCustomValidity('请输入正确的学院名')"></div>
-        <div><label for="ramandrominfo">存储</label> <input id="ramandrominfo" type="text" required="required" minlength="3" oninvalid="setCustomValidity('请输入正确的专业名')"></div>
-    </div>
-    <hr/>
-    <div class="scbt">
-        <button type="submit" id="submit">提交</button>
-        <button class="cancel">取消</button>
-    </div>
-<!--    </form>-->
-</div>
-<div class="achaesi" id="chasi">
-<!--    <form action="" method="post">-->
-    <h2>修改学生信息</h2>
-    <div class="modify">
-        <div><label for="phonebrand">品牌</label> <input id="phonebrand" type="text" required="required" minlength="1" oninvalid="setCustomValidity('请输入正确的姓名')"></div>
-        <div><label for="phonetype">型号</label> <input id="phonetype" type="text" required="required" minlength="1" oninvalid="setCustomValidity('请输入正确的姓名')"></div>
-        <div><label for="cpuinfo">处理器</label> <input id="cpuinfo" type="text" required="required" minlength="1" oninvalid="setCustomValidity('请输入正确的学院名')"></div>
-        <div><label for="ramandrominfo">存储</label> <input id="ramandrominfo" type="text" required="required" minlength="1" oninvalid="setCustomValidity('请输入正确的专业名')"></div>
-    </div>
-    <hr/>
-    <div class="scbt">
-        <button type="submit" id="save">保存</button>
-        <button class="cancel">取消</button>
-    </div>
-
-</div>
 </body>
 </html>
